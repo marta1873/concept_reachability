@@ -52,7 +52,7 @@ class Diffusion(nn.Module):
         self.optimizer_name = args.optim
         self.optim = None
 
-        # traaining hyperparameters
+        # training hyperparameters
         self.batch_size = args.batch_size
         self.num_workers = args.num_workers
         self.lr = args.lr
@@ -74,7 +74,7 @@ class Diffusion(nn.Module):
             self.local_dir = os.path.join(start_point, f'diffusion_b_{self.optimizer_name}_{self.lr}_{args.u_net_size}',
                                           f'seed_{args.seed}')
 
-        # name of direcotry to store checkpoints
+        # name of directory to store checkpoints
         self.ckpt_dir = 'checkpoints'
 
         # vector to add in prompt space (set to 0 unless optimising concept vector or adding it for sampling)
@@ -102,7 +102,7 @@ class Diffusion(nn.Module):
         last_hidden_states = self.encode_text(prompt)
 
         # Feed this to the UNet alongside the timestep and return the prediction
-        return self.unet(x, t, encoder_hidden_states=last_hidden_states + self.p_vec).sample  # (bs, 1, 28, 28)
+        return self.unet(x, t, encoder_hidden_states=last_hidden_states + self.p_vec).sample 
 
     def get_loss(self, x, t, prompt):
         # add noise
