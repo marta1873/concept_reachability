@@ -1,2 +1,2 @@
-# concept_reachability
+# Concept Reachability
 Project on reachability of concepts on diffusion models.
