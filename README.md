@@ -2,8 +2,8 @@
 
 ## Experiment 1: Balanced dataset
 
-## Experiment 2: Varying the number of datapoints containing a concept
+## Experiment 2: Scarcity of Concepts
 
-## Experiment 3: Varying the amount of information in the labels
+## Experiment 3: Underspecification of Captions
 
-## Experiment 4: Tied concepts
+## Experiment 4: Biases
