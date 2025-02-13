@@ -1,86 +1,141 @@
 config_dict_2_1 = {
     0: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red triangle behind a green square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red triangle behind a green square'
     },
     1: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a blue triangle behind a green square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a blue triangle behind a green square'
     },
     2: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red circle behind a green square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red circle behind a green square'
     },
     3: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red square behind a green square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red square behind a green square'
     },
     4: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red triangle behind a blue square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red triangle behind a blue square'
     },
     5: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red triangle behind a green circle']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red triangle behind a green circle'
     },
     6: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red triangle behind a green triangle']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red triangle behind a green triangle'
     },
     7: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a blue circle behind a green square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a blue circle behind a green square'
     },
     8: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a blue square behind a green square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a blue square behind a green square'
     },
     9: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red triangle behind a blue circle']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red triangle behind a blue circle'
     },
     10: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red triangle behind a blue triangle']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red triangle behind a blue triangle'
     },
     11: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a green triangle behind a red square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a green triangle behind a red square'
     },
     12: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a blue triangle behind a red square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a blue triangle behind a red square'
     },
     13: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a green triangle behind a blue square']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a green triangle behind a blue square'
     },
     14: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red circle behind a green triangle']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red circle behind a green triangle'
     },
     15: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red square behind a green circle']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red square behind a green circle'
     },
     16: {
-        'prompts_plus': ['a red triangle behind a green square'],
-        'prompts_minus': ['a red circle behind a green circle']
+        'end_prompt': 'a red triangle behind a green square',
+        'starting_prompt': 'a red circle behind a green circle'
     }
 }
 
-
-def sample_prompts(model, config_dict):
-    sampled_prompts = []
-
-    for key in config_dict.keys():
-        prompts_plus = config_dict[key]['prompts_plus'][0]
-        prompts_minus = config_dict[key]['prompts_minus'][0]
-
-        if prompts_plus not in sampled_prompts:
-            model.sample(100, prompts_plus, return_img=False)
-            sampled_prompts.append(prompts_plus)
-
-        if prompts_minus not in sampled_prompts:
-            model.sample(100, prompts_minus, return_img=False)
-            sampled_prompts.append(prompts_minus)
+config_dict_2_2 = {
+    0: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green triangle behind a blue circle'
+    },
+    1: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a red triangle behind a blue circle'
+    },
+    2: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green circle behind a blue circle'
+    },
+    3: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green square behind a blue circle'
+    },
+    4: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green triangle behind a red circle'
+    },
+    5: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green triangle behind a blue triangle'
+    },
+    6: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green triangle behind a blue square'
+    },
+    7: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a red circle behind a blue circle'
+    },
+    8: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a red square behind a blue circle'
+    },
+    9: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green triangle behind a red triangle'
+    },
+    10: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green triangle behind a red square'
+    },
+    11: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a red triangle behind a green circle'
+    },
+    12: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a blue triangle behind a red circle'
+    },
+    13: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a blue triangle behind a green circle'
+    },
+    14: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green circle behind a blue triangle'
+    },
+    15: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green circle behind a blue square'
+    },
+    16: {
+        'end_prompt': 'a green triangle behind a blue circle',
+        'starting_prompt': 'a green square behind a blue triangle'
+    }
+}

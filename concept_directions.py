@@ -1,203 +1,194 @@
 import torch
-import numpy as np
 import os
 import matplotlib.pyplot as plt
 import torchvision
 
 
-# algorithm 1
-def generate_data(prompts_plus, prompts_minus, diffusion_model, num_samples=200):
-
-    # if more than one prompt plus/minus, randomly generate the order in which they are sampled
-    n = np.random.randint(0, len(prompts_plus), size=num_samples)
-
-    # get list with prompts plus & minus
-    prompt_plus = [prompts_plus[i] for i in n]
-    prompt_minus = [prompts_minus[i] for i in n]
-
-    # sample images with prompt plus - these contain the target end point
-    images_plus = diffusion_model.sample(batch_size=len(prompt_plus), prompt=prompt_plus, return_img=True)
-
-    return images_plus, prompt_minus
-
-
 def freeze_model(model):
+    """
+    Freezes all parameters of a PyTorch model by setting requires_grad = False
+    Args:
+        model: torch.nn.Module, PyTorch model
+    Returns:
+    """
     for param in model.parameters():
         param.requires_grad = False
 
 
-def add_vector(vector):
-    # the hook signature
-    def hook(module, input, output):
-        output += vector
-    return hook
-
-
-def plot_losses_and_norm_evolution(losses, norms, plots_dir, filename, regularisation=None, space='h'):
-    fig, ax = plt.subplots(1, 2, figsize=(20, 8))
-
-    ax[0].set_title('Loss')
-    ax[0].plot(losses)
-
-    ax[1].set_title('Norm')
-    ax[1].plot(norms)
-
-    if filename is None:
-        plt.savefig(f'{plots_dir}/' + f'loss_norm_evolution_{space}_{regularisation}.png')
-        plt.close()
-    else:
-        dir_path = os.path.join(plots_dir, filename)
-        if not os.path.exists(dir_path):
-            os.makedirs(dir_path)
-        plt.savefig(f'{plots_dir}/' + f'{filename}/loss_norm_evolution_{space}_{regularisation}.png')
-        plt.close()
-
-
-def get_max(list_vals):
-    return max(list_vals)
-
-
-def get_average_last_n(list_vals, n):
-    last_n = list_vals[-n:]
-    return sum(last_n) / len(last_n)
-
-
-def create_vector(diffusion_model):
-    # create vector to add with hook in h space
+def create_vector_h_space(diffusion_model):
+    """
+    Creates vector to add to bottleneck layer of U-net
+    Args:
+        diffusion_model: Diffusion instance
+    Returns:
+        vec: torch.Tensor, vector of dimension 1x128x8x8
+    """
+    # Create vector to add with hook in h-space
     vec = torch.zeros(1, 128, 8, 8, device=diffusion_model.device, requires_grad=True, dtype=torch.float32)
     print(f'Norm of c_vec: {torch.norm(vec)}')
     return vec
 
 
-# algorithm 2
-def find_concept_vector(images, prompts, diffusion_model, lr=0.01, filename=None, regularisation=None, space='h'):
-    # freeze unet parameters
+def add_vector(vector):
+    """
+    Creates a forward hook that adds a specified vector to the output of a layer during the forward pass
+    Args:
+        vector: torch.Tensor, vector to be added to the forward pass, must have same dimension as output
+    Returns:
+        hook: function, hook that can be registered to a PyTorch module's forward pass
+    """
+    def hook(module, input, output):
+        output += vector
+    return hook
+
+
+def get_average_last_n(list_vals, n):
+    """
+    Calculates average of last n elements of a list or tensor
+    Args:
+        list_vals: torch.Tensor, list of tensors to be averaged
+        n: int, number of elements to average
+    Returns:
+        float, average of last n elements
+    """
+    last_n = list_vals[-n:]
+    return sum(last_n) / len(last_n)
+
+
+def find_concept_vector(images, starting_prompts, diffusion_model, lr=0.02, save_dir=None, space='h'):
+    """
+    Optimisation of steering vector
+    Args:
+        images: torch.Tensor, collection of images containing target concepts
+        starting_prompts: list of str, starting prompts
+        diffusion_model: Diffusion, diffusion model instance with device configurations
+        lr: float, learning rate for optimisation process
+        save_dir: str, name used to save outputs
+        space: str, if 'p', optimisation on the prompt space; if 'h' optimisation on the h-space
+    Returns:
+        vec: torch.Tensor, optimised steering vector
+    """
+    # Freeze U-net parameters
     freeze_model(diffusion_model.unet)
 
-    # register hook to add c_vec at relevant layer
-    if space == 'h':
-        # create concept vector in corresponding space
-        vec = create_vector(diffusion_model)
-        h = diffusion_model.unet.mid_block.register_forward_hook(add_vector(vec))
-    else:
+    # Create concept vector in space where steering is to be implemented
+    if space == 'p':
+        # Set requires_grad=True for weights on p_vec (depends on space)
         diffusion_model.p_vec.requires_grad = True
         vec = diffusion_model.p_vec
+    elif space == 'h':
+        # Register hook to add vector in h-space
+        vec = create_vector_h_space(diffusion_model)
+        h = diffusion_model.unet.mid_block.register_forward_hook(add_vector(vec))
+    else:
+        raise ValueError(f"Unsupported space '{space}'. Choose 'h' for latent space or 'p' for prompt space.")
 
-    # optimizer
+    # Optimizer
     optimizer = torch.optim.Adam([vec], lr=lr, betas=(0.9, 0.999), eps=1e-8, weight_decay=0)
 
-    # lists to store results
-    norms = []
-    losses = []
-    vector_dict = {}
+    # Tensor to store results
+    losses = torch.zeros(5000)
 
-    # Begin optimisation process
+    # Move data to GPU (mapped to (-1, 1))
+    x = images.to(diffusion_model.device) * 2 - 1
+
     print('Begin optimisation process')
-    for i in range(50):
-        print(f'Iteration: {i}')
-        # get some data and prepare the corrupted version
-        x = images.to(diffusion_model.device) * 2 - 1  # Data on the GPU (mapped to (-1, 1))
-
-        # get timesteps
+    for i in range(5000):
+        # Get timesteps
         t = torch.randint(0, diffusion_model.T, (x.shape[0],)).long().to(diffusion_model.device)
 
-        # calculate the MSE loss
-        loss_diff = diffusion_model.get_loss(x, t, prompts)
+        # Calculate the MSE loss
+        loss = diffusion_model.get_loss(x, t, starting_prompts)
 
-        # get norm of concept vector
-        norm = torch.linalg.vector_norm(vec)
+        # Record stats
+        losses[i] = loss.item()
 
-        # regularisation
-        if regularisation:
-            loss = loss_diff + regularisation * norm
-        else:
-            loss = loss_diff
-
-        # store loss
-        print(f'Loss: {loss.item()}')
-        losses.append(loss.item())
-
-        # store norm
-        norms.append(norm.cpu().detach().numpy())
-
-        # calculate gradients of the loss
+        # Calculate gradients and update vector
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-        # print results
-        print(f'Norm of c_vec: {norm}')
-        print(f'Mean of entries in c_vec: {torch.mean(vec)}')
-        print(f'Variance of entries in c_vec: {torch.var(vec)}')
+        # Print results
+        if i % 100 == 0:
+            print(f'Iteration: {i}, Loss: {loss.item()}, Norm of vector: {torch.linalg.norm(vec)}')
 
-        # get checkpoints
-        if i in [50, 500, 1000, 2500, 5000, 7500] and space ==' h':
-            vector_dict[f'{i}'] = vec.detach().clone()
-
-    # remove hook
+    # Remove hook
     if space == 'h':
         h.remove()
 
-    # get final results
+    # Get final loss (averaged over last 10 iterations)
     average_loss = get_average_last_n(losses, 10)
 
-    # save results
-    results_dict = {'final_loss': average_loss, 'initial_loss': losses[0], 'max_vector_entry': torch.max(torch.abs(vec)),
-                    'norm_vector': norm, 'mean_vector_entry': torch.mean(vec), 'variance_vector_entry': torch.var(vec)}
-
-    # create directory
-    if not os.path.exists(f'{diffusion_model.local_dir}/{filename}/'):
-        os.makedirs(f'{diffusion_model.local_dir}/{filename}/')
-    torch.save(results_dict, f'{diffusion_model.local_dir}/{filename}/concept_vectors_{space}_{regularisation}.json')
-    if space == 'h':
-        torch.save(vector_dict, f'{diffusion_model.local_dir}/{filename}/vector_dict.json')
-
-    # print results
-    print(f'Average loss last 10 iterations: {average_loss}')
+    # Print final results
+    print(f'Average loss across final 10 iterations: {average_loss}')
     print(f'Initial loss: {losses[0]}')
     print(f'Largest entry in vector: {torch.max(vec)}')
 
-    # plot results
-    plot_losses_and_norm_evolution(losses, norms, diffusion_model.local_dir, filename=filename,
-                                   regularisation=regularisation, space=space)
+    # Save final results
+    results_dict = {'final_loss': average_loss.item(),
+                    'initial_loss': losses[0].item(),
+                    'max_vector_entry': torch.max(torch.abs(vec)).item(),
+                    'norm_vector': torch.linalg.vector_norm(vec).item(),
+                    'mean_vector_entry': torch.mean(vec).item(),
+                    'variance_vector_entry': torch.var(vec).item()}
 
-    # save concept vector
+    # Create save directory
+    os.makedirs(f'{diffusion_model.local_dir}/{save_dir}/', exist_ok=True)
+
+    # Save results_dict
+    torch.save(results_dict, f'{diffusion_model.local_dir}/{save_dir}/concept_vectors_{space}.json')
+
+    # Save concept vector
     vec.requires_grad = False
-    torch.save(vec, os.path.join(diffusion_model.local_dir, f'{filename}/concept_vectors_{space}_{regularisation}.pt'))
+    torch.save(vec, os.path.join(diffusion_model.local_dir, f'{save_dir}/concept_vectors_{space}.pt'))
 
     return vec
 
 
-def sample_with_concept_vector(diffusion_model, prompt, concept_vector, num_samples=100, test=None, regularisation=None,
-                               space='h'):
-    # set requires_grad to False
+def sample_with_concept_vector(diffusion_model, prompt, concept_vector, num_samples=100, test=None, space='h'):
+    """
+    Samples images by adding steering vector in corresponding space
+    Args:
+        diffusion_model: Diffusion, diffusion model instance with device configurations
+        prompt: str, starting prompt
+        concept_vector: torch.Tensor, optimised vector
+        num_samples: int, number of images to sample
+        test: int, test number corresponding to the starting prompt and target concept combination
+        space: str, either 'p' for steering on the prompt space or 'h' for steering on the h-space
+    Returns:
+        images: torch.Tensor, images sampled with steering
+    """
+    # Set requires_grad to False
     concept_vector.requires_grad = False
 
-    # add concept vector in space
-    if space == 'h':
-        # register hook to add c_vec at bottleneck layer
+    # Add concept vector in space where steering is to be implemented
+    if space == 'p':
+        # Set diffusion_model.p_vec to concept vector
+        diffusion_model.p_vec = concept_vector
+    elif space == 'h':
+        # Register hook to add vec at bottleneck layer of U-net
         h = diffusion_model.unet.mid_block.register_forward_hook(add_vector(concept_vector))
     else:
-        # set p_vec at prompt space to concept vector
-        diffusion_model.p_vec = concept_vector
+        raise ValueError(f"Unsupported space '{space}'. Choose 'h' for latent space or 'p' for prompt space.")
 
-    # sample with concept vector
-    images = diffusion_model.sample(num_samples, prompt, return_img=True)
+    # Sample with concept vector
+    images = diffusion_model.sample(num_samples, prompt, return_img=True, save_plots=False)
 
-    # remove hook
+    # Remove hook
     if space == 'h':
         h.remove()
 
-    # create results path
+    # Create save directory
     plots_dir = os.path.join(diffusion_model.local_dir, f'{test}', f'samples_{prompt}')
-    if not os.path.exists(plots_dir):
-        os.makedirs(plots_dir)
+    os.makedirs(plots_dir, exist_ok=True)
 
     # Show the results
     fig, ax = plt.subplots(1, 1)
     ax.set_title(f'{prompt}')
     ax.imshow(torchvision.utils.make_grid(images, nrow=10, pad_value=0.5).permute(1, 2, 0))
     plt.axis('off')
-    plt.savefig(f'{plots_dir}/' + f'grid_samples_concept_edit_{space}_{regularisation}.png')
+    plt.savefig(f'{plots_dir}/' + f'grid_samples_concept_edit_{space}.png')
     print(f'Saved samples to {plots_dir}')
     plt.close()
+
+    return images
