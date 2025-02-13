@@ -122,7 +122,7 @@ if __name__ == '__main__':
     parser.add_argument('--space', default='h', type=str, choices=['h', 'p'],
                         help='space where steering is implemented')
 
-    parser.add_argument('--train_dir', default='complete_dataset', type=str, help='train set directory')
+    parser.add_argument('--train_dir', default='data/complete_dataset', type=str, help='train set directory')
     parser.add_argument('--prompt', default='a blue circle behind a red triangle', type=str,
                         help='prompt for sampling (for sample task)')
 
