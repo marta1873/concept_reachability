@@ -319,7 +319,7 @@ if __name__ == "__main__":
     optimizer = Adam(model.parameters(), lr=1e-3)
     criterion = nn.CrossEntropyLoss()
 
-    EPOCHS = 7  # 200
+    EPOCHS = 7 
     best_valid_loss = float('inf')
 
     # Optimisation process
