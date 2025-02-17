@@ -1,6 +1,10 @@
 # Concept Reachability
 
-This is the code repository for Concept Reachability in Diffusion Models. To run the code it is required to first generate the train data for the diffusion model (see [generate_dataset.py](./generate_dataset.py)) and store it within a 'data' directory. The original balanced dataset is available [here](https://drive.google.com/drive/folders/1je8rXTlkerypXLcj5NPMAV_Y3JgDCahE?usp=share_link).
+This is the code repository for Concept Reachability in Diffusion Models. To run the code it is required to first generate the train data for the diffusion model (see [generate_dataset.py](./generate_dataset.py)) and store it within a directory labelled `data`. The original balanced dataset is available [here](https://drive.google.com/drive/folders/1je8rXTlkerypXLcj5NPMAV_Y3JgDCahE?usp=share_link).
+
+Images consist of coloured (reg, green, blue) shapes (circle, triangle, square) on a black background, where one shape is partially covered by the other. Captions are of the form 'a {colour} {shape} behind a {colour} {shape}'.
+
+<img src="/images/trainset.png" alt="Images in trainset" width="300">
 
 
 ## Experiment 1: Balanced dataset
