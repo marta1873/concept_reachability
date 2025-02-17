@@ -24,7 +24,7 @@ Steer using target and starting prompts in dictionary:
 
 ![Scarcity diagram](./images/scaricity.png)
 
-The configuration dictionary used for steering is available in [experiment_2.json](./config_dicts/experiment_2.json), targetting reachability to images containing a red triangles behind green squares under the reduction of images containing red triangles in the back.
+The configuration dictionary used for steering is available in [experiment_2.json](./config_dicts/experiment_2.json), targetting reachability to images containing a red triangles behind green squares under the reduction of images containing red shapes in the back.
 
 ## Experiment 3: Underspecification of Captions
 
