@@ -8,13 +8,13 @@ This is the code repository for Concept Reachability in Diffusion Models. To run
 Analysis of sampling and steering under balanced conditions. The configuration dictionary used for steering is available in [experiment_1.json](./config_dicts/experiment_1.json).
 
 Train a diffusion model:
-'python main.py --optim adam --lr 1e-3 --experiment_num 1 --train_dir complete_dataset --task train'
+`python main.py --optim adam --lr 1e-3 --experiment_num 1 --train_dir complete_dataset --task train`
 
 Sample target concepts in dictionary:
-'python main.py --optim adam --lr 1e-3 --experiment_num 1 --train_dir complete_dataset --task sample --path_to_config_dict config_dicts/experiment_1.json'
+`python main.py --optim adam --lr 1e-3 --experiment_num 1 --train_dir complete_dataset --task sample --path_to_config_dict config_dicts/experiment_1.json`
 
 Steer using target and starting prompts in dictionary:
-'python main.py --optim adam --lr 1e-3 --experiment_num 1 --train_dir complete_dataset --task steer --path_to_config_dict config_dicts/experiment_1.json'
+`python main.py --optim adam --lr 1e-3 --experiment_num 1 --train_dir complete_dataset --task steer --path_to_config_dict config_dicts/experiment_1.json`
 
 ## Experiment 2: Scarcity of Concepts
 
