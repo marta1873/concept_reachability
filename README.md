@@ -4,7 +4,7 @@ This is the code repository for Concept Reachability in Diffusion Models. To run
 
 Images consist of coloured (reg, green, blue) shapes (circle, triangle, square) on a black background, where one shape is partially covered by the other. Captions are of the form 'a {colour} {shape} behind a {colour} {shape}'.
 
-<img src="/images/trainset.png" alt="Images in trainset" width="300">
+<img src="/images/trainset.png" alt="Images in trainset" width="600">
 
 
 ## Experiment 1: Balanced dataset
