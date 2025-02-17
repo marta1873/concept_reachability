@@ -1,0 +1,338 @@
+[
+    {
+        "0": {
+            "end_prompt": "a red circle behind a green square",
+            "starting_prompt": "a red circle behind a green square"
+        },
+        "1": {
+            "end_prompt": "a red triangle behind a green square",
+            "starting_prompt": "a red triangle behind a green square"
+        },
+        "2": {
+            "end_prompt": "a green square behind a red square",
+            "starting_prompt": "a green square behind a red square"
+        },
+        "3": {
+            "end_prompt": "a green circle behind a red triangle",
+            "starting_prompt": "a green circle behind a red triangle"
+        },
+        "4": {
+            "end_prompt": "a red square behind a green triangle",
+            "starting_prompt": "a red square behind a green triangle"
+        },
+        "5": {
+            "end_prompt": "a blue triangle behind a green circle",
+            "starting_prompt": "a blue triangle behind a green circle"
+        },
+        "6": {
+            "end_prompt": "a red circle behind a green circle",
+            "starting_prompt": "a red circle behind a green circle"
+        },
+        "7": {
+            "end_prompt": "a green square behind a red circle",
+            "starting_prompt": "a green square behind a red circle"
+        },
+        "8": {
+            "end_prompt": "a blue square behind a green square",
+            "starting_prompt": "a blue square behind a green square"
+        },
+        "9": {
+            "end_prompt": "a blue triangle behind a red triangle",
+            "starting_prompt": "a blue triangle behind a red triangle"
+        }
+    },
+    {
+        "0": {
+            "end_prompt": "a red circle behind a green square",
+            "starting_prompt": "a circle behind a green square"
+        },
+        "1": {
+            "end_prompt": "a red triangle behind a green square",
+            "starting_prompt": "a triangle behind a green square"
+        },
+        "2": {
+            "end_prompt": "a green square behind a red square",
+            "starting_prompt": "a square behind a red square"
+        },
+        "3": {
+            "end_prompt": "a green circle behind a red triangle",
+            "starting_prompt": "a circle behind a red triangle"
+        },
+        "4": {
+            "end_prompt": "a red square behind a green triangle",
+            "starting_prompt": "a square behind a green triangle"
+        },
+        "5": {
+            "end_prompt": "a blue triangle behind a green circle",
+            "starting_prompt": "a triangle behind a green circle"
+        },
+        "6": {
+            "end_prompt": "a red circle behind a green circle",
+            "starting_prompt": "a circle behind a green circle"
+        },
+        "7": {
+            "end_prompt": "a green square behind a red circle",
+            "starting_prompt": "a square behind a red circle"
+        },
+        "8": {
+            "end_prompt": "a blue square behind a green square",
+            "starting_prompt": "a square behind a green square"
+        },
+        "9": {
+            "end_prompt": "a blue triangle behind a red triangle",
+            "starting_prompt": "a triangle behind a red triangle"
+        }
+    },
+    {
+        "0": {
+            "end_prompt": "a red circle behind a green square",
+            "starting_prompt": "a red shape behind a green square"
+        },
+        "1": {
+            "end_prompt": "a red triangle behind a green square",
+            "starting_prompt": "a red shape behind a green square"
+        },
+        "2": {
+            "end_prompt": "a green square behind a red square",
+            "starting_prompt": "a green shape behind a red square"
+        },
+        "3": {
+            "end_prompt": "a green circle behind a red triangle",
+            "starting_prompt": "a green shape behind a red triangle"
+        },
+        "4": {
+            "end_prompt": "a red square behind a green triangle",
+            "starting_prompt": "a red shape behind a green triangle"
+        },
+        "5": {
+            "end_prompt": "a blue triangle behind a green circle",
+            "starting_prompt": "a blue shape behind a green circle"
+        },
+        "6": {
+            "end_prompt": "a red circle behind a green circle",
+            "starting_prompt": "a red shape behind a green circle"
+        },
+        "7": {
+            "end_prompt": "a green square behind a red circle",
+            "starting_prompt": "a green shape behind a red circle"
+        },
+        "8": {
+            "end_prompt": "a blue square behind a green square",
+            "starting_prompt": "a blue shape behind a green square"
+        },
+        "9": {
+            "end_prompt": "a blue triangle behind a red triangle",
+            "starting_prompt": "a blue shape behind a red triangle"
+        }
+    },
+    {
+        "0": {
+            "end_prompt": "a red circle behind a green square",
+            "starting_prompt": "a red circle behind a square"
+        },
+        "1": {
+            "end_prompt": "a red triangle behind a green square",
+            "starting_prompt": "a red triangle behind a square"
+        },
+        "2": {
+            "end_prompt": "a green square behind a red square",
+            "starting_prompt": "a green square behind a square"
+        },
+        "3": {
+            "end_prompt": "a green circle behind a red triangle",
+            "starting_prompt": "a green circle behind a triangle"
+        },
+        "4": {
+            "end_prompt": "a red square behind a green triangle",
+            "starting_prompt": "a red square behind a triangle"
+        },
+        "5": {
+            "end_prompt": "a blue triangle behind a green circle",
+            "starting_prompt": "a blue triangle behind a circle"
+        },
+        "6": {
+            "end_prompt": "a red circle behind a green circle",
+            "starting_prompt": "a red circle behind a circle"
+        },
+        "7": {
+            "end_prompt": "a green square behind a red circle",
+            "starting_prompt": "a green square behind a circle"
+        },
+        "8": {
+            "end_prompt": "a blue square behind a green square",
+            "starting_prompt": "a blue square behind a square"
+        },
+        "9": {
+            "end_prompt": "a blue triangle behind a red triangle",
+            "starting_prompt": "a blue triangle behind a triangle"
+        }
+    },
+    {
+        "0": {
+            "end_prompt": "a red circle behind a green square",
+            "starting_prompt": "a red circle behind a green shape"
+        },
+        "1": {
+            "end_prompt": "a red triangle behind a green square",
+            "starting_prompt": "a red triangle behind a green shape"
+        },
+        "2": {
+            "end_prompt": "a green square behind a red square",
+            "starting_prompt": "a green square behind a red shape"
+        },
+        "3": {
+            "end_prompt": "a green circle behind a red triangle",
+            "starting_prompt": "a green circle behind a red shape"
+        },
+        "4": {
+            "end_prompt": "a red square behind a green triangle",
+            "starting_prompt": "a red square behind a green shape"
+        },
+        "5": {
+            "end_prompt": "a blue triangle behind a green circle",
+            "starting_prompt": "a blue triangle behind a green shape"
+        },
+        "6": {
+            "end_prompt": "a red circle behind a green circle",
+            "starting_prompt": "a red circle behind a green shape"
+        },
+        "7": {
+            "end_prompt": "a green square behind a red circle",
+            "starting_prompt": "a green square behind a red shape"
+        },
+        "8": {
+            "end_prompt": "a blue square behind a green square",
+            "starting_prompt": "a blue square behind a green shape"
+        },
+        "9": {
+            "end_prompt": "a blue triangle behind a red triangle",
+            "starting_prompt": "a blue triangle behind a red shape"
+        }
+    },
+    {
+        "0": {
+            "end_prompt": "a red circle behind a green square",
+            "starting_prompt": "a green square"
+        },
+        "1": {
+            "end_prompt": "a red triangle behind a green square",
+            "starting_prompt": "a green square"
+        },
+        "2": {
+            "end_prompt": "a green square behind a red square",
+            "starting_prompt": "a red square"
+        },
+        "3": {
+            "end_prompt": "a green circle behind a red triangle",
+            "starting_prompt": "a red triangle"
+        },
+        "4": {
+            "end_prompt": "a red square behind a green triangle",
+            "starting_prompt": "a green triangle"
+        },
+        "5": {
+            "end_prompt": "a blue triangle behind a green circle",
+            "starting_prompt": "a green circle"
+        },
+        "6": {
+            "end_prompt": "a red circle behind a green circle",
+            "starting_prompt": "a green circle"
+        },
+        "7": {
+            "end_prompt": "a green square behind a red circle",
+            "starting_prompt": "a red circle"
+        },
+        "8": {
+            "end_prompt": "a blue square behind a green square",
+            "starting_prompt": "a green square"
+        },
+        "9": {
+            "end_prompt": "a blue triangle behind a red triangle",
+            "starting_prompt": "a red triangle"
+        }
+    },
+    {
+        "0": {
+            "end_prompt": "a red circle behind a green square",
+            "starting_prompt": "a square"
+        },
+        "1": {
+            "end_prompt": "a red triangle behind a green square",
+            "starting_prompt": "a square"
+        },
+        "2": {
+            "end_prompt": "a green square behind a red square",
+            "starting_prompt": "a square"
+        },
+        "3": {
+            "end_prompt": "a green circle behind a red triangle",
+            "starting_prompt": "a triangle"
+        },
+        "4": {
+            "end_prompt": "a red square behind a green triangle",
+            "starting_prompt": "a triangle"
+        },
+        "5": {
+            "end_prompt": "a blue triangle behind a green circle",
+            "starting_prompt": "a circle"
+        },
+        "6": {
+            "end_prompt": "a red circle behind a green circle",
+            "starting_prompt": "a circle"
+        },
+        "7": {
+            "end_prompt": "a green square behind a red circle",
+            "starting_prompt": "a circle"
+        },
+        "8": {
+            "end_prompt": "a blue square behind a green square",
+            "starting_prompt": "a square"
+        },
+        "9": {
+            "end_prompt": "a blue triangle behind a red triangle",
+            "starting_prompt": "a triangle"
+        }
+    },
+    {
+        "0": {
+            "end_prompt": "a red circle behind a green square",
+            "starting_prompt": ""
+        },
+        "1": {
+            "end_prompt": "a red triangle behind a green square",
+            "starting_prompt": ""
+        },
+        "2": {
+            "end_prompt": "a green square behind a red square",
+            "starting_prompt": ""
+        },
+        "3": {
+            "end_prompt": "a green circle behind a red triangle",
+            "starting_prompt": ""
+        },
+        "4": {
+            "end_prompt": "a red square behind a green triangle",
+            "starting_prompt": ""
+        },
+        "5": {
+            "end_prompt": "a blue triangle behind a green circle",
+            "starting_prompt": ""
+        },
+        "6": {
+            "end_prompt": "a red circle behind a green circle",
+            "starting_prompt": ""
+        },
+        "7": {
+            "end_prompt": "a green square behind a red circle",
+            "starting_prompt": ""
+        },
+        "8": {
+            "end_prompt": "a blue square behind a green square",
+            "starting_prompt": ""
+        },
+        "9": {
+            "end_prompt": "a blue triangle behind a red triangle",
+            "starting_prompt": ""
+        }
+    }
+]
