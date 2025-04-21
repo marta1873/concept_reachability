@@ -216,7 +216,9 @@ def evaluate_accuracy_batch(batch, model_list, attribute_list, target, save_dire
     # Save dictionary
     if space == 'p':
         torch.save(predicted_labels, os.path.join(save_directory, 'predicted_labels_p.pth'))
-    elif space == 'h':
+    elif space == 'h:
+        torch.save(predicted_labels, os.path.join(save_directory, 'predicted_labels_h.pth'))
+    else:
         torch.save(predicted_labels, os.path.join(save_directory, 'predicted_labels.pth'))
 
     # Evaluate accuracy
