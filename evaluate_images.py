@@ -218,8 +218,6 @@ def evaluate_accuracy_batch(batch, model_list, attribute_list, target, save_dire
         torch.save(predicted_labels, os.path.join(save_directory, 'predicted_labels_p.pth'))
     elif space == 'h':
         torch.save(predicted_labels, os.path.join(save_directory, 'predicted_labels.pth'))
-    else:
-        raise ValueError(f"Invalid value for `space`: '{space}'. Expected 'p' or 'h'.")
 
     # Evaluate accuracy
     accuracy = evaluate_accuracy(predicted_labels, target, attribute_list)
