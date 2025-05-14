@@ -28,10 +28,10 @@ def build_unet(num_channels=3):
 
     # Create model
     unet = UNet2DConditionModel(
-        sample_size=64,  # target image resolution
-        in_channels=num_channels,  # number of input channels, 3 for RGB images
-        out_channels=num_channels,  # number of output channels
-        layers_per_block=2,  # number of ResNet layers to use per UNet block
+        sample_size=64,  
+        in_channels=num_channels,  
+        out_channels=num_channels,  
+        layers_per_block=2,  
         block_out_channels=channels,  
         norm_num_groups=1,
         down_block_types=down_blocks,
